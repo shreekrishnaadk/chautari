@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chautari</title>
+
+</head>
+
+<body>
+
+<header>
+    <h1>CHAUTARI</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="messages.html">Messages</a></li>
+            <li><a href="notifications.html">Notifications</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
+    <div class="profile">
+        <div class="profile-header">
+            <img src="ska.jpg" alt="Profile Picture">
+            <h2>Shree Krishna Adhikari</h2>
+        </div>
+
+       
+    </div>
+</div>
+<div class="container">
+  <div class="sidebar">
+    <h3>Friends</h3>
+    <ul>
+      <li><a onclick="showProfile('Ram Krishna Adhikari')">Ram Krishna Adhikari</a></li>
+      <li><a onclick="showProfile('Swastika Chauhan')">Swastika Chauhan</a></li>
+      <li><a onclick="showProfile('Shreyas Adhikari')">Shreyas Adhikari</a></li>
+    </ul>
+  </div>
+
+  <div class="profile">
+    <div class="profile-header">
+      <img src="gr.jpg" alt="Profile Picture" id="profile-img">
+      <h2 id="profile-name">Select a friend</h2>
+    </div>
+    <p id="profile-desc">Click on a friend’s name to see their profile details here.</p>
+  </div>
+   <div class="post">
+            <div class="post-header">Shree Krishna Adhikari</div>
+            <p>Hello world! This is my first post.</p>
+            <button class="like-btn" onclick="likePost(this)">Like (<span class="like-count">0</span>)</button>
+            <div class="comment-section">
+                <input type="text" placeholder="Write a comment..." class="comment-input">
+                <button class="comment-btn" onclick="addComment(this)">Comment</button>
+                <div class="comments"></div>
+            </div>
+        </div>
+
+        <div class="post">
+            <div class="post-header">Shree Krishna Adhikari</div>
+            <p>Learning HTML, CSS, and React to build amazing web apps!</p>
+            <button class="like-btn" onclick="likePost(this)">Like (<span class="like-count">0</span>)</button>
+            <div class="comment-section">
+                <input type="text" placeholder="Write a comment..." class="comment-input">
+                <button class="comment-btn" onclick="addComment(this)">Comment</button>
+                <div class="comments"></div>
+            </div>
+        </div>
+</div>
+<script>
+const profiles = {
+  "Ram Krishna Adhikari": {
+    img: "ram.jpg",
+    desc: "Hi, I'm Ram Krishna. I love web development and traveling!"
+  },
+  "Swastika Chauhan": {
+    img: "sw.jpg",
+    desc: "Hi, I'm Swastika. I love painting, photography, and hiking."
+  },
+  "Shreyas Adhikari": {
+    img: "shey.jpg",
+    desc: "Hello! I'm Shreyas. I enjoy gaming and creating web apps."
+  }
+};
+
+function showProfile(name) {
+  const profile = profiles[name];
+  document.getElementById("profile-img").src = profile.img;
+  document.getElementById("profile-name").textContent = name;
+  document.getElementById("profile-desc").textContent = profile.desc;
+}
+
+</script>
+<script>
+    function likePost(btn) {
+        const countSpan = btn.querySelector('.like-count');
+        let count = parseInt(countSpan.textContent);
+        count++;
+        countSpan.textContent = count;
+    }
+
+    function addComment(btn) {
+        const commentInput = btn.parentElement.querySelector('.comment-input');
+        const commentText = commentInput.value.trim();
+        if(commentText === "") return;
+        const commentsDiv = btn.parentElement.querySelector('.comments');
+        const newComment = document.createElement('p');
+        newComment.textContent = commentText;
+        commentsDiv.appendChild(newComment);
+        commentInput.value = "";
+    }
+</script>
+
+</body>
+</html>
