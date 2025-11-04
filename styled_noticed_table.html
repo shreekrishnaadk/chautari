@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notice Board</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .filter-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 90%;
+      margin: auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Optional fade animation for filtering */
+    tr {
+      transition: all 0.3s ease;
+    }
+
+    tr.hide {
+      opacity: 0;
+      transform: scaleY(0);
+      height: 0;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>📢 Notice Board</h2>
+
+  <!-- Search and Filter -->
+  <div class="filter-container">
+    <input type="text" id="searchInput" placeholder="Search...">
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="training">Training</option>
+      <option value="scheme">Scheme</option>
+      <option value="program">Program</option>
+    </select>
+  </div>
+
+  <!-- Table -->
+  <table id="noticeTable" data-sortdir="asc">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Date ⬍</th>
+        <th onclick="sortTable(1)">Title ⬍</th>
+        <th onclick="sortTable(2)">Category ⬍</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-category="training">
+        <td>2025-10-15</td>
+        <td>Honeybee Production Training Notice</td>
+        <td>Training</td>
+        <td><a href="#">Download</a></td>
+      </tr>
+      <tr data-category="scheme">
+        <td>2025-09-25</td>
+        <td>New Agricultural Scheme for Farmers</td>
+        <td>Scheme</td>
+        <td><a href="#">Download</a></td>
+      </tr>
+      <tr data-category="program">
+        <td>2025-11-01</td>
+        <td>Organic Farming Awareness Program</td>
+        <td>Program</td>
+        <td><a href="#">Download</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const table = document.getElementById('noticeTable');
+    const rows = table.querySelectorAll('tbody tr');
+
+    // Filter logic
+    function filterTable() {
+      const searchValue = searchInput.value.toLowerCase();
+      const selectedCategory = categoryFilter.value;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const category = row.getAttribute('data-category');
+        const matchesSearch = text.includes(searchValue);
+        const matchesCategory = selectedCategory === 'all' || selectedCategory === category;
+        row.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
+      });
+    }
+
+    // Sort logic
+    function sortTable(colIndex) {
+      const tbody = table.querySelector('tbody');
+      const asc = table.dataset.sortdir !== 'asc';
+      table.dataset.sortdir = asc ? 'asc' : 'desc';
+
+      const sortedRows = Array.from(rows).sort((a, b) => {
+        const aText = a.cells[colIndex].textContent.trim().toLowerCase();
+        const bText = b.cells[colIndex].textContent.trim().toLowerCase();
+        return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+      });
+
+      sortedRows.forEach(row => tbody.appendChild(row));
+    }
+
+    // Event listeners
+    searchInput.addEventListener('input', filterTable);
+    categoryFilter.addEventListener('change', filterTable);
+  </script>
+</body>
+</html>

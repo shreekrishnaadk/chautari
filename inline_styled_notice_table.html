@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inline Styled Notice Table</title>
+</head>
+<body style="font-family: Arial, sans-serif; background:#f7f7f7; padding:40px;">
+
+  <h2 style="text-align:center; color:#333;">📢 Notice Board</h2>
+
+  <!-- Search and Filter -->
+  <div style="text-align:center; margin-bottom:20px;">
+    <input 
+      type="text" 
+      id="searchInput" 
+      placeholder="Search..."
+      style="padding:10px; border:1px solid #ccc; border-radius:6px; font-size:16px;"
+      oninput="
+        var s=this.value.toLowerCase();
+        var c=document.getElementById('categoryFilter').value;
+        document.querySelectorAll('#noticeTable tbody tr').forEach(r=>{
+          var t=r.textContent.toLowerCase();
+          var cat=r.getAttribute('data-category');
+          var show=(t.includes(s)) && (c==='all'||c===cat);
+          r.style.display=show?'':'none';
+        });
+      "
+    >
+    <select 
+      id="categoryFilter"
+      style="padding:10px; border:1px solid #ccc; border-radius:6px; font-size:16px;"
+      onchange="
+        var s=document.getElementById('searchInput').value.toLowerCase();
+        var c=this.value;
+        document.querySelectorAll('#noticeTable tbody tr').forEach(r=>{
+          var t=r.textContent.toLowerCase();
+          var cat=r.getAttribute('data-category');
+          var show=(t.includes(s)) && (c==='all'||c===cat);
+          r.style.display=show?'':'none';
+        });
+      "
+    >
+      <option value='all'>All Categories</option>
+      <option value='training'>Training</option>
+      <option value='scheme'>Scheme</option>
+      <option value='program'>Program</option>
+    </select>
+  </div>
+
+  <!-- Table -->
+  <table id="noticeTable" style="width:90%; margin:auto; border-collapse:collapse; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.1);" data-sortdir="asc">
+    <thead>
+      <tr style="background:#4CAF50; color:white;">
+        <th style="padding:12px; text-align:left; cursor:pointer;"
+          onclick="
+            var t=this.closest('table');
+            var asc=t.dataset.sortdir!=='asc';
+            t.dataset.sortdir=asc?'asc':'desc';
+            var rows=[...t.tBodies[0].rows];
+            rows.sort((a,b)=>{
+              var x=a.cells[0].innerText.trim(),y=b.cells[0].innerText.trim();
+              return asc?x.localeCompare(y):y.localeCompare(x);
+            });
+            rows.forEach(r=>t.tBodies[0].appendChild(r));
+          ">Date ⬍</th>
+        <th style="padding:12px; text-align:left; cursor:pointer;"
+          onclick="
+            var t=this.closest('table');
+            var asc=t.dataset.sortdir!=='asc';
+            t.dataset.sortdir=asc?'asc':'desc';
+            var rows=[...t.tBodies[0].rows];
+            rows.sort((a,b)=>{
+              var x=a.cells[1].innerText.trim().toLowerCase(),
+                  y=b.cells[1].innerText.trim().toLowerCase();
+              return asc?x.localeCompare(y):y.localeCompare(x);
+            });
+            rows.forEach(r=>t.tBodies[0].appendChild(r));
+          ">Title ⬍</th>
+        <th style="padding:12px; text-align:left; cursor:pointer;"
+          onclick="
+            var t=this.closest('table');
+            var asc=t.dataset.sortdir!=='asc';
+            t.dataset.sortdir=asc?'asc':'desc';
+            var rows=[...t.tBodies[0].rows];
+            rows.sort((a,b)=>{
+              var x=a.cells[2].innerText.trim().toLowerCase(),
+                  y=b.cells[2].innerText.trim().toLowerCase();
+              return asc?x.localeCompare(y):y.localeCompare(x);
+            });
+            rows.forEach(r=>t.tBodies[0].appendChild(r));
+          ">Category ⬍</th>
+        <th style="padding:12px; text-align:left;">Download</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr data-category="training" style="border-bottom:1px solid #ddd;">
+        <td style="padding:12px;">2025-10-15</td>
+        <td style="padding:12px;">Honeybee Production Training Notice</td>
+        <td style="padding:12px;">Training</td>
+        <td style="padding:12px;"><a href="#" style="color:#007bff; text-decoration:none;">Download</a></td>
+      </tr>
+      <tr data-category="scheme" style="border-bottom:1px solid #ddd;">
+        <td style="padding:12px;">2025-09-25</td>
+        <td style="padding:12px;">New Agricultural Scheme for Farmers</td>
+        <td style="padding:12px;">Scheme</td>
+        <td style="padding:12px;"><a href="#" style="color:#007bff; text-decoration:none;">Download</a></td>
+      </tr>
+      <tr data-category="program" style="border-bottom:1px solid #ddd;">
+        <td style="padding:12px;">2025-11-01</td>
+        <td style="padding:12px;">Organic Farming Awareness Program</td>
+        <td style="padding:12px;">Program</td>
+        <td style="padding:12px;"><a href="#" style="color:#007bff; text-decoration:none;">Download</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

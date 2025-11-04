@@ -16,7 +16,7 @@
     <li><a href="profile.html">CHAUTARI</a></li>
     </ul></nav></h1>
   <div class="chautari">
-  <img src="picture/chautari logo.png" alt="Chautari Logo";>
+  <img src="picture/chautari logo.png" alt="Chautari Logo">
   </div>
   <nav>
     <ul>
@@ -27,19 +27,76 @@
   </nav>
 </header>
 
-<body>
+
+
+
+
   <div class="outer-box">
-     <h3>Friends</h3>
-    <div class="inner-box">
-        <ul id="friends-list">
-      <li><a onclick="showProfile('Ram Krishna Adhikari')">Ram Krishna Adhikari</a></li>
-      <li><a onclick="showProfile('Swastika Chauhan')">Swastika Chauhan</a></li>
-      <li><a onclick="showProfile('Shreyas Adhikari')">Shreyas Adhikari</a></li>
-      <li><a onclick="showProfile('Shreyan Adhikari')">Shreyan Adhikari</a></li>
-      <li><a onclick="showProfile('Sagar Chauhan')">Sagar Chauhan</a></li>
+  <h3>Friends</h3>
+  <div class="inner-box">
+    <ul id="friends-list">
+    <li>
+        <img src="picture/ram.jpg" alt="Ram" class="friend-pic">
+        <a onclick="showProfile('Ram Krishna Adhikari')">Ram Krishna Adhikari</a>
+      </li>
+     
+     
+     
+      <!--<li><a href="javascript:void(0)" class="friend-link" data-name="Ram Krishna Adhikari" onclick="showProfile('Ram Krishna Adhikari')">
+  <img src="picture/ram.jpg" alt="Ram" class="friend-pic">
+  <span>Ram Krishna Adhikari</span>
+</a>-->
+
+
+
+
+
+<!--<ul id="friends-list">
+  <li>
+    <a href="javascript:void(0)" class="friend-link" data-name="Ram Krishna Adhikari"
+       onclick="showProfile('Ram Krishna Adhikari')">
+      <img src="picture/ram.jpg" alt="Ram" class="friend-pic">
+      <span>Ram Krishna Adhikari</span>
+    </a>
+  </li>
+</ul>-->
+
+        
+        
+        
+        <!--<li></li><a href="javascript:void(0)" class="friend-link" onclick="showProfile('Ram Krishna Adhikari')">
+  <img src="picture/ram.jpg" alt="Ram" class="friend-pic">
+  <span>Ram Krishna Adhikari</span>
+</a>
+      </li>-->
+
+
+
+
+
+      <li>
+        <img src="picture/sw.jpg" alt="Swastika" class="friend-pic">
+        <a onclick="showProfile('Swastika Chauhan')">Swastika Chauhan</a>
+      </li>
+      <li>
+        <img src="picture/shey.jpg" alt="Shreyas" class="friend-pic">
+        <a onclick="showProfile('Shreyas Adhikari')">Shreyas Adhikari</a>
+      </li>
+      <li>
+        <img src="picture/sr.jpeg" alt="Shreyan" class="friend-pic">
+        <a onclick="showProfile('Shreyan Adhikari')">Shreyan Adhikari</a>
+      </li>
+      <li>
+        <img src="picture/sag.jpg" alt="Sagar" class="friend-pic">
+        <a onclick="showProfile('Sagar Chauhan')">Sagar Chauhan</a>
+      </li>
     </ul>
-    </div>
   </div>
+</div>
+
+
+
+
 <div class="outer-box1">
      <h3>Trending topics</h3>
      
@@ -98,10 +155,20 @@
 </div>
 </main>
 
-
 </body>
 
 <script>
+
+
+
+const link = document.querySelector(`#friends-list a[data-name="${name}"]`);
+
+
+/*const link = document.querySelector(`#friends-list a[data-name="${name}"]`);
+if (!link) return; // safety
+link.classList.add("active");*/
+
+
 const profiles = {
   "Ram Krishna Adhikari": 
   { img: "picture/ram.jpg",
@@ -252,7 +319,6 @@ function sendMessage() {
 
 
 
-
 // 🔹 Convert image file to Base64
 function toBase64(file) {
   return new Promise((resolve, reject) => {
@@ -379,8 +445,6 @@ window.addEventListener("load", loadPostsFromLocalStorage);
 
 
 
-
 </script>
-
-</body>
 </html>
+
